@@ -45,7 +45,7 @@ export const KapacitorRule = React.createClass({
       ruleActions,
       isEditing,
     } = this.props
-    const {chooseTrigger, updateRuleValues} = ruleActions
+    const {chooseTrigger, updateRuleValues, updateCommon} = ruleActions
     const {timeRange} = this.state
 
     return (
@@ -78,6 +78,7 @@ export const KapacitorRule = React.createClass({
                     query={queryConfigs[rule.queryID]}
                     onChooseTrigger={chooseTrigger}
                     onUpdateValues={updateRuleValues}
+                    onUpdateCommon={updateCommon}
                   />
                   <RuleGraph
                     timeRange={timeRange}
@@ -172,6 +173,10 @@ export const KapacitorRule = React.createClass({
 
     if (!rule.values.value) {
       return 'Please enter a value in the Rule Conditions section'
+    }
+
+    if (!rule.common.periodValue) {
+      return 'Please enter a value in the Rule Common section'
     }
 
     return ''

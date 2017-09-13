@@ -119,6 +119,7 @@ KapacitorRulePage.propTypes = {
     loadDefaultRule: func.isRequired,
     fetchRule: func.isRequired,
     chooseTrigger: func.isRequired,
+    updateCommon: func.isRequired,
     addEvery: func.isRequired,
     removeEvery: func.isRequired,
     updateRuleValues: func.isRequired,

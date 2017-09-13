@@ -12,6 +12,7 @@ export default function rules(state = {}, action) {
           queryID,
           trigger: 'threshold',
           values: defaultRuleConfigs.threshold,
+          common: defaultRuleConfigs.common,
           message: '',
           alerts: [],
           alertNodes: [],
@@ -61,6 +62,15 @@ export default function rules(state = {}, action) {
         [ruleID]: Object.assign({}, state[ruleID], {
           trigger: trigger.toLowerCase(),
           values,
+        }),
+      })
+    }
+
+    case 'UPDATE_COMMON': {
+      const {ruleID, common} = action.payload
+      return Object.assign({}, state, {
+        [ruleID]: Object.assign({}, state[ruleID], {
+          common,
         }),
       })
     }

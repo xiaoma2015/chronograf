@@ -17,6 +17,9 @@ export const defaultRuleConfigs = {
     relation: 'once',
     percentile: '90',
   },
+  common: {
+    periodValue: '100m',
+  },
 }
 
 export const defaultEveryFrequency = '30s'

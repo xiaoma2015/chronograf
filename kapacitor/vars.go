@@ -40,7 +40,9 @@ func Vars(rule chronograf.AlertRule) (string, error) {
 		%s
         var crit = %s
  `
-			return fmt.Sprintf(vars, common, formatValue(rule.TriggerValues.Value)), nil
+			return fmt.Sprintf(vars, 
+			 	common, 
+				formatValue(rule.TriggerValues.Value)), nil
 		}
 		vars := `
 			%s
@@ -122,6 +124,15 @@ func commonVars(rule chronograf.AlertRule) (string, error) {
         var details = '%s'
     `, rule.Details)
 	}
+  
+  if rule.CommonSettings.PeriodValue != "" {
+		res += fmt.Sprintf(`
+		    var periodStateChange = %s
+    `, rule.CommonSettings.PeriodValue)
+    fmt.Println("CommonSettings: ", rule.CommonSettings.PeriodValue)
+    fmt.Println(res)
+  }
+  
 	return res, nil
 }
 

@@ -452,6 +452,7 @@ type AlertRule struct {
 	Message       string          `json:"message"`              // Message included with alert
 	Details       string          `json:"details"`              // Details is generally used for the Email alert.  If empty will not be added.
 	Trigger       string          `json:"trigger"`              // Trigger is a type that defines when to trigger the alert
+  CommonSettings CommonSettings `json:"common"`               // Defines the common settings
 	TriggerValues TriggerValues   `json:"values"`               // Defines the values that cause the alert to trigger
 	Name          string          `json:"name"`                 // Name is the user-defined name for the alert
 }
@@ -463,6 +464,11 @@ type TICKScript string
 type Ticker interface {
 	// Generate will create the tickscript to be used as a kapacitor task
 	Generate(AlertRule) (TICKScript, error)
+}
+
+// CommonSettings specifies the common settings
+type CommonSettings struct {
+	PeriodValue string `json:"periodValue"`         //periodValue is the period for alert, used by stateChangeOnly 
 }
 
 // TriggerValues specifies the alerting logic for a specific trigger type

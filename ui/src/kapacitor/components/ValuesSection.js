@@ -14,6 +14,7 @@ export const ValuesSection = React.createClass({
     }).isRequired,
     onChooseTrigger: PropTypes.func.isRequired,
     onUpdateValues: PropTypes.func.isRequired,
+    onUpdateCommon: PropTypes.func.isRequired,
     query: PropTypes.shape({}).isRequired,
   },
 
@@ -36,6 +37,10 @@ export const ValuesSection = React.createClass({
 
             <TabPanels>
               <TabPanel>
+                <Common
+                  common={rule.common}
+                  onChange={this.handleCommonChange}
+                />
                 <Threshold
                   rule={rule}
                   query={query}
@@ -43,9 +48,17 @@ export const ValuesSection = React.createClass({
                 />
               </TabPanel>
               <TabPanel>
+                <Common
+                  common={rule.common}
+                  onChange={this.handleCommonChange}
+                />
                 <Relative rule={rule} onChange={this.handleValuesChange} />
               </TabPanel>
               <TabPanel>
+                <Common
+                  common={rule.common}
+                  onChange={this.handleCommonChange}
+                />
                 <Deadman rule={rule} onChange={this.handleValuesChange} />
               </TabPanel>
             </TabPanels>
@@ -67,6 +80,11 @@ export const ValuesSection = React.createClass({
   handleValuesChange(values) {
     const {onUpdateValues, rule} = this.props
     onUpdateValues(rule.id, rule.trigger, values)
+  },
+
+  handleCommonChange(value) {
+    const {onUpdateCommon, rule} = this.props
+    onUpdateCommon(rule.id, value)
   },
 })
 
@@ -244,6 +262,60 @@ const Deadman = React.createClass({
           items={periods}
           selected={this.props.rule.values.period}
           onChoose={this.handleChange}
+        />
+      </div>
+    )
+  },
+})
+
+const Common = React.createClass({
+  propTypes: {
+    common: PropTypes.shape({
+      periodValue: PropTypes.string,
+    }),
+    onChange: PropTypes.func.isRequired,
+  },
+
+  handleInputChange() {
+    this.props.onChange({
+      ...this.props.common,
+      periodValue: this.valuePeriodInput
+        ? this.handleDuration(this.valuePeriodInput.value)
+        : '',
+    })
+  },
+
+  handleDuration(dur) {
+    const s = String(dur)
+    if (s.indexOf('w') > 0) {
+      return s.substr(0, s.indexOf('w') + 1)
+    }
+    if (s.indexOf('d') > 0) {
+      return s.substr(0, s.indexOf('d') + 1)
+    }
+    if (s.indexOf('h') > 0) {
+      return s.substr(0, s.indexOf('h') + 1)
+    }
+    if (s.indexOf('m') > 0) {
+      return s.substr(0, s.indexOf('m') + 1)
+    }
+  },
+
+  render() {
+    const {periodValue} = this.props.common
+
+    return (
+      <div className="rule-section--row rule-section--border-bottom">
+        <p>Alert Period</p>
+        <input
+          className="form-control input-sm form-malachite monotype"
+          style={{width: '160px'}}
+          placeholder="1s 1m or 1h"
+          type="text"
+          spellCheck="false"
+          ref={r => (this.valuePeriodInput = r)}
+          defaultValue={this.handleDuration(periodValue)}
+          onKeyUp={this.handleInputChange}
         />
       </div>
     )

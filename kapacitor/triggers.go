@@ -20,7 +20,7 @@ const (
 
 // AllAlerts are properties all alert types will have
 var AllAlerts = `
-    .stateChangesOnly()
+    .stateChangesOnly(periodStateChange)
     .message(message)
 	.id(idVar)
 	.idTag(idTag)

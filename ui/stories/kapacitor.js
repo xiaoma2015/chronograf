@@ -28,6 +28,7 @@ const valuesSection = (trigger, values) => (
       query={query()}
       onChooseTrigger={action('chooseTrigger')}
       onUpdateValues={action('updateRuleValues')}
+      onUpdateCommon={action('updateRuleCommon')}
     />
   </div>
 );
@@ -68,6 +69,11 @@ storiesOf('ValuesSection', module)
   .add('Deadman', () => (
     valuesSection('deadman', {
       "period": "10m",
+    })
+  ))
+  .add('Common', () => (
+    valuesSection('common', {
+      "periodValue": "100m",
     })
   ));
 

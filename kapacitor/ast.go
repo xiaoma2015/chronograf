@@ -60,6 +60,22 @@ func varDuration(kapaVar string, vars map[string]tick.Var) (string, bool) {
 	return durVar.String(), true
 }
 
+func shortDur(s string) string {
+  if strings.HasSuffix(s, "m0s") {
+      s = s[:len(s)-2]
+  }
+  if strings.HasSuffix(s, "h0m") {
+      s = s[:len(s)-2]
+  }
+  if strings.HasSuffix(s, "d0h") {
+      s = s[:len(s)-2]
+  }
+  if strings.HasSuffix(s, "w0d") {
+      s = s[:len(s)-2]
+  }
+  return s
+}
+
 func varStringList(kapaVar string, vars map[string]tick.Var) ([]string, bool) {
 	v, ok := vars[kapaVar]
 	if !ok {
@@ -151,6 +167,7 @@ type CommonVars struct {
 	Period      string
 	Every       string
 	Detail      string
+  PeriodStateChange string
 }
 
 // ThresholdVars represents the critical value where an alert occurs
@@ -222,6 +239,10 @@ func extractCommonVars(vars map[string]tick.Var) (CommonVars, error) {
 		res.Detail = detail
 	}
 
+  if periodStateChange, ok := varDuration("periodStateChange", vars); ok {
+    res.PeriodStateChange = periodStateChange;
+  }
+
 	// Relative and Threshold alerts may have an every variables
 	if every, ok := varDuration("every", vars); ok {
 		res.Every = every
@@ -250,7 +271,7 @@ func extractAlertVars(vars map[string]tick.Var) (interface{}, error) {
 				Crit: crit,
 			}, nil
 		}
-		r := &RangeVars{}
+		r := &RangeVars{};
 		// Threshold Range alerts must have both an upper and lower bound
 		if r.Lower, ok = varValue("lower", vars); !ok {
 			return nil, ErrNotChronoTickscript
@@ -408,6 +429,7 @@ func Reverse(script chronograf.TICKScript) (chronograf.AlertRule, error) {
 	rule.Trigger = commonVars.TriggerType
 	rule.Message = commonVars.Message
 	rule.Details = commonVars.Detail
+  rule.CommonSettings.PeriodValue = commonVars.PeriodStateChange;
 	rule.Query.Database = commonVars.DB
 	rule.Query.RetentionPolicy = commonVars.RP
 	rule.Query.Measurement = commonVars.Measurement

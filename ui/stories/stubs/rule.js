@@ -1,5 +1,6 @@
 const rule = ({
   trigger,
+  common,
   values,
 }) => {
   values = {
@@ -39,6 +40,7 @@ const rule = ({
     "alerts": [],
     "message": "",
     trigger,
+    common,
     values,
     "name": "Untitled Rule",
     "tickscript": "var db = 'telegraf'\n\nvar rp = 'autogen'\n\nvar measurement = 'cpu'\n\nvar groupBy = []\n\nvar whereFilter = lambda: TRUE\n\nvar period = 10s\n\nvar every = 30s\n\nvar name = 'Untitled Rule'\n\nvar idVar = name + ':{{.Group}}'\n\nvar message = ''\n\nvar idTag = 'alertID'\n\nvar levelTag = 'level'\n\nvar messageField = 'message'\n\nvar durationField = 'duration'\n\nvar outputDB = 'chronograf'\n\nvar outputRP = 'autogen'\n\nvar outputMeasurement = 'alerts'\n\nvar triggerType = 'threshold'\n\nvar lower = 10\n\nvar upper = 20\n\nvar data = stream\n    |from()\n        .database(db)\n        .retentionPolicy(rp)\n        .measurement(measurement)\n        .groupBy(groupBy)\n        .where(whereFilter)\n    |window()\n        .period(period)\n        .every(every)\n        .align()\n    |mean('usage_idle')\n        .as('value')\n\nvar trigger = data\n    |alert()\n        .crit(lambda: \"value\" < lower AND \"value\" > upper)\n        .stateChangesOnly()\n        .message(message)\n        .id(idVar)\n        .idTag(idTag)\n        .levelTag(levelTag)\n        .messageField(messageField)\n        .durationField(durationField)\n\ntrigger\n    |influxDBOut()\n        .create()\n        .database(outputDB)\n        .retentionPolicy(outputRP)\n        .measurement(outputMeasurement)\n        .tag('alertName', name)\n        .tag('triggerType', triggerType)\n\ntrigger\n    |httpOut('output')\n",

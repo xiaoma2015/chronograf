@@ -97,6 +97,16 @@ export function updateRuleValues(ruleID, trigger, values) {
   }
 }
 
+export function updateCommon(ruleID, common) {
+  return {
+    type: 'UPDATE_COMMON',
+    payload: {
+      ruleID,
+      common,
+    },
+  }
+}
+
 export function updateMessage(ruleID, message) {
   return {
     type: 'UPDATE_RULE_MESSAGE',

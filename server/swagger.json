@@ -2746,6 +2746,16 @@
           "description": "Trigger defines the alerting structure; deadman alert if no data are received for the specified time range; relative alert if the data change relative to the data in a different time range; threshold alert if the data cross a boundary",
           "enum": ["deadman", "relative", "threshold"]
         },
+        "common": {
+          "type": "object",
+          "description": "Altering common settings",
+          "properties": {
+            "periodValue": {
+              "description": "periodValue is the period for alert, used by stateChangeOnly",
+              "type": "string"
+            }
+          }
+        },
         "values": {
           "type": "object",
           "description": "Alerting logic for trigger type",
