@@ -220,6 +220,7 @@ class CellEditorOverlay extends Component {
   render() {
     const {
       source,
+      sources,
       onCancel,
       templates,
       timeRange,
@@ -275,6 +276,8 @@ class CellEditorOverlay extends Component {
             {isDisplayOptionsTabActive
               ? <DisplayOptions
                   axes={axes}
+                  source={source}
+                  sources={sources}
                   onSetBase={this.handleSetBase}
                   onSetLabel={this.handleSetLabel}
                   onSetScale={this.handleSetScale}
@@ -338,6 +341,7 @@ CellEditorOverlay.propTypes = {
     status: shape({}),
   }).isRequired,
   dashboardID: string.isRequired,
+  sources: arrayOf(shape()),
 }
 
 CEOBottom.propTypes = {
