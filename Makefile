@@ -109,7 +109,7 @@ run-dev: chronogiraffe
 clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 	cd ui && yarn run clean
-	cd ui && rm -rf node_modules
+	#cd ui && rm -rf node_modules
 	rm -f dist/dist_gen.go canned/bin_gen.go server/swagger_gen.go
 	@rm -f .godep .jsdep .jssrc .dev-jssrc .bindata
 

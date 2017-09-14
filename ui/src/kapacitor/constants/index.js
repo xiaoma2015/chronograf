@@ -18,7 +18,7 @@ export const defaultRuleConfigs = {
     percentile: '90',
   },
   common: {
-    periodValue: '100m',
+    periodValue: '1m',
   },
 }
 

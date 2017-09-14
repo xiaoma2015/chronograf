@@ -175,7 +175,7 @@ export const KapacitorRule = React.createClass({
       return 'Please enter a value in the Rule Conditions section'
     }
 
-    if (!rule.common.periodValue) {
+    if (!rule.common || !rule.common.periodValue) {
       return 'Please enter a value in the Rule Common section'
     }
 

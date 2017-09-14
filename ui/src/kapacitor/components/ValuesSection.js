@@ -299,6 +299,7 @@ const Common = React.createClass({
     if (s.indexOf('m') > 0) {
       return s.substr(0, s.indexOf('m') + 1)
     }
+    return s
   },
 
   render() {
