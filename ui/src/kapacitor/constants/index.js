@@ -19,6 +19,7 @@ export const defaultRuleConfigs = {
   },
   common: {
     periodValue: '1m',
+    periodStateDuration: '1m',
   },
 }
 

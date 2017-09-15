@@ -2753,6 +2753,10 @@
             "periodValue": {
               "description": "periodValue is the period for alert, used by stateChangeOnly",
               "type": "string"
+            },
+            "periodStateDuration": {
+              "description": "periodStateDuration is the threshold for alert state duration, used by stateDuration",
+              "type": "string"
             }
           }
         },

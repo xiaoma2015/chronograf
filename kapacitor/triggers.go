@@ -36,16 +36,20 @@ var Details = `
 
 // ThresholdTrigger is the tickscript trigger for alerts that exceed a value
 var ThresholdTrigger = `
+  |stateDuration(lambda: "value" %s crit).unit(stateDurationUnit)
+
   var trigger = data
   |alert()
-    .crit(lambda: "value" %s crit)
+    .crit(lambda: "state_duration" >= stateDurationNum)
 `
 
 // ThresholdRangeTrigger is the alert when data does not intersect the range.
 var ThresholdRangeTrigger = `
+  |stateDuration(lambda: "value" %s lower %s "value" %s upper).unit(stateDurationUnit)
+
 	var trigger = data
 	|alert()
-		.crit(lambda: "value" %s lower %s "value" %s upper)
+		.crit(lambda: "state_duration" >= stateDurationNum)
 `
 
 // RelativeAbsoluteTrigger compares one window of data versus another (current - past)
@@ -61,8 +65,9 @@ var trigger = past
 	|eval(lambda: float("current.value" - "past.value"))
 		.keep()
 		.as('value')
+  |stateDuration(lambda: "value" %s crit).unit(stateDurationUnit)
     |alert()
-        .crit(lambda: "value" %s crit)
+        .crit(lambda: "state_duration" >= stateDurationNum)
 `
 
 // RelativePercentTrigger compares one window of data versus another as a percent change.
@@ -78,8 +83,9 @@ var trigger = past
 	|eval(lambda: abs(float("current.value" - "past.value"))/float("past.value") * 100.0)
 		.keep()
 		.as('value')
+  |stateDuration(lambda: "value" %s crit).unit(stateDurationUnit)
     |alert()
-        .crit(lambda: "value" %s crit)
+        .crit(lambda: "state_duration" >= stateDurationNum)
 `
 
 // DeadmanTrigger checks if any data has been streamed in the last period of time

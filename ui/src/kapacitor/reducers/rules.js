@@ -13,7 +13,9 @@ export default function rules(state = {}, action) {
           trigger: 'threshold',
           values: defaultRuleConfigs.threshold,
           common: defaultRuleConfigs.common,
-          message: '',
+          message: '{{.Level}}  {{.Name}}  {{.Group}}',
+          details:
+            '{{ if eq .Level "OK" }} <p style="color:green"> {{ else }} <p style="color:red"> {{ end }}  {{.Level}} </p> {{.Name}}={{ index .Fields "value" | printf "%0.2f" }}  {{.Group}}   {{.Time}}',
           alerts: [],
           alertNodes: [],
           every: null,
@@ -119,7 +121,7 @@ export default function rules(state = {}, action) {
           alertNodesByType = [
             {
               name: alertNodeName,
-              args: alertNodesText.split(' '),
+              args: alertNodesText.replace(/\s+/g, ' ').split(' '),
               properties: [],
             },
           ]

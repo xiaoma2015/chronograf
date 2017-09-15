@@ -82,6 +82,7 @@ KapacitorRulesPage.propTypes = {
       name: string.isRequired,
       trigger: string.isRequired,
       message: string.isRequired,
+      details: string,
       alerts: arrayOf(string.isRequired).isRequired,
     })
   ).isRequired,

@@ -129,7 +129,23 @@ func commonVars(rule chronograf.AlertRule) (string, error) {
 		res += fmt.Sprintf(`
 		    var periodStateChange = %s
     `, rule.CommonSettings.PeriodValue)
-    fmt.Println("CommonSettings: ", rule.CommonSettings.PeriodValue)
+  }
+
+  if rule.CommonSettings.PeriodStateDuration != "" {
+    stateDurationUnit := ""
+    stateDurationNum := ""
+    len := len(rule.CommonSettings.PeriodStateDuration)
+    if len > 1 {
+      stateDurationUnit = "1" + rule.CommonSettings.PeriodStateDuration[len-1:len]
+      stateDurationNum = rule.CommonSettings.PeriodStateDuration[0:len-1]
+    } else {
+      stateDurationUnit = "1m"
+      stateDurationNum = rule.CommonSettings.PeriodStateDuration
+    }
+		res += fmt.Sprintf(`
+		    var stateDurationUnit = %s
+		    var stateDurationNum = %s
+    `, stateDurationUnit, stateDurationNum)
     fmt.Println(res)
   }
   

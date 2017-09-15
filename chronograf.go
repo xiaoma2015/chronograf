@@ -469,6 +469,7 @@ type Ticker interface {
 // CommonSettings specifies the common settings
 type CommonSettings struct {
 	PeriodValue string `json:"periodValue"`         //periodValue is the period for alert, used by stateChangeOnly 
+	PeriodStateDuration string `json:"periodStateDuration"`         //periodStateDuration is the threshold for alert state duration, used by stateDuration,
 }
 
 // TriggerValues specifies the alerting logic for a specific trigger type

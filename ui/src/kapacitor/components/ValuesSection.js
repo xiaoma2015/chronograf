@@ -272,6 +272,7 @@ const Common = React.createClass({
   propTypes: {
     common: PropTypes.shape({
       periodValue: PropTypes.string,
+      periodStateDuration: PropTypes.string,
     }),
     onChange: PropTypes.func.isRequired,
   },
@@ -281,6 +282,9 @@ const Common = React.createClass({
       ...this.props.common,
       periodValue: this.valuePeriodInput
         ? this.handleDuration(this.valuePeriodInput.value)
+        : '',
+      periodStateDuration: this.valuePeriodStateDuration
+        ? this.handleDuration(this.valuePeriodStateDuration.value)
         : '',
     })
   },
@@ -303,7 +307,7 @@ const Common = React.createClass({
   },
 
   render() {
-    const {periodValue} = this.props.common
+    const {periodValue, periodStateDuration} = this.props.common
 
     return (
       <div className="rule-section--row rule-section--border-bottom">
@@ -316,6 +320,17 @@ const Common = React.createClass({
           spellCheck="false"
           ref={r => (this.valuePeriodInput = r)}
           defaultValue={this.handleDuration(periodValue)}
+          onKeyUp={this.handleInputChange}
+        />
+        <p>State Duration</p>
+        <input
+          className="form-control input-sm form-malachite monotype"
+          style={{width: '160px'}}
+          placeholder="1s 1m or 1h"
+          type="text"
+          spellCheck="false"
+          ref={r => (this.valuePeriodStateDuration = r)}
+          defaultValue={this.handleDuration(periodStateDuration)}
           onKeyUp={this.handleInputChange}
         />
       </div>

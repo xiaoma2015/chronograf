@@ -168,6 +168,7 @@ type CommonVars struct {
 	Every       string
 	Detail      string
   PeriodStateChange string
+  PeriodStateDuration string
 }
 
 // ThresholdVars represents the critical value where an alert occurs
@@ -241,6 +242,12 @@ func extractCommonVars(vars map[string]tick.Var) (CommonVars, error) {
 
   if periodStateChange, ok := varDuration("periodStateChange", vars); ok {
     res.PeriodStateChange = periodStateChange;
+  }
+
+  if stateDurationUnit, ok := varDuration("stateDurationUnit", vars); ok {
+    if stateDurationNum, ok := varValue("stateDurationNum", vars); ok {
+      res.PeriodStateDuration = stateDurationNum + stateDurationUnit[1:2];
+    }
   }
 
 	// Relative and Threshold alerts may have an every variables
@@ -334,7 +341,27 @@ type CritCondition struct {
 func extractCrit(script chronograf.TICKScript) CritCondition {
 	// Threshold and relative alerts have the form .crit(lambda: "value" op crit)
 	// Threshold range alerts have the form .crit(lambda: "value" op lower op "value" op upper)
-	var re = regexp.MustCompile(`(?Um)\.crit\(lambda:\s+"value"\s+(.*)\s+crit\)`)
+	var re = regexp.MustCompile(`(?Um)\|stateDuration\(lambda:\s+"value"\s+(.*)\s+crit\)`)
+	for _, match := range re.FindAllStringSubmatch(string(script), -1) {
+		op := match[1]
+		return CritCondition{
+			Operators: []string{
+				op,
+			},
+		}
+	}
+	re = regexp.MustCompile(`(?Um)\|stateDuration\(lambda:\s+"value"\s+(.*)\s+lower\s+(.*)\s+"value"\s+(.*)\s+upper\)`)
+	for _, match := range re.FindAllStringSubmatch(string(script), -1) {
+		lower, compound, upper := match[1], match[2], match[3]
+		return CritCondition{
+			Operators: []string{
+				lower,
+				compound,
+				upper,
+			},
+		}
+	}
+	re = regexp.MustCompile(`(?Um)\.crit\(lambda:\s+"value"\s+(.*)\s+crit\)`)
 	for _, match := range re.FindAllStringSubmatch(string(script), -1) {
 		op := match[1]
 		return CritCondition{
@@ -430,6 +457,7 @@ func Reverse(script chronograf.TICKScript) (chronograf.AlertRule, error) {
 	rule.Message = commonVars.Message
 	rule.Details = commonVars.Detail
   rule.CommonSettings.PeriodValue = commonVars.PeriodStateChange;
+  rule.CommonSettings.PeriodStateDuration = commonVars.PeriodStateDuration;
 	rule.Query.Database = commonVars.DB
 	rule.Query.RetentionPolicy = commonVars.RP
 	rule.Query.Measurement = commonVars.Measurement
