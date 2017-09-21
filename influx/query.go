@@ -445,6 +445,7 @@ var supportedFuncs = map[string]bool{
 	"last":   true,
 	"spread": true,
 	"stddev": true,
+	"derivative": true,
 }
 
 // shortDur converts duration into the queryConfig duration format

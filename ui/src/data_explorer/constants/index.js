@@ -9,6 +9,7 @@ export const INFLUXQL_FUNCTIONS = [
   'last',
   'spread',
   'stddev',
+  'derivative',
 ]
 
 export const MINIMUM_HEIGHTS = {

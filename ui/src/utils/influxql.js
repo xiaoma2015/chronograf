@@ -56,7 +56,11 @@ function _buildFields(fieldFuncs) {
     return fieldFuncs
       .map(f => {
         return f.funcs
-          .map(func => `${func}("${f.field}") AS "${func}_${f.field}"`)
+          .map(func => {
+            return func === 'derivative'
+              ? `${func}(max("${f.field}"), 1s) AS "${func}_${f.field}"`
+              : `${func}("${f.field}") AS "${func}_${f.field}"`
+          })
           .join(', ')
       })
       .join(', ')
