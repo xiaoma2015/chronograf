@@ -146,7 +146,7 @@ class AlertsTable extends Component {
                     className="alert-history-table--td"
                     style={{width: colTime}}
                   >
-                    {new Date(Number(time)).toISOString()}
+                    {new Date(Number(time)).toLocaleString()}
                   </div>
                   <div
                     className="alert-history-table--td alert-history-table--host"

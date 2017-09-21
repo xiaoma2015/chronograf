@@ -15,7 +15,7 @@ export default function rules(state = {}, action) {
           common: defaultRuleConfigs.common,
           message: '{{.Level}}  {{.Name}}  {{.Group}}',
           details:
-            '{{ if eq .Level "OK" }} <p style="color:green"> {{ else }} <p style="color:red"> {{ end }}  {{.Level}} </p> {{.Name}}={{ index .Fields "value" | printf "%0.2f" }}  {{.Group}}   {{.Time}}',
+            '{{ if eq .Level "OK" }} <p style="color:green"> {{ else }} <p style="color:red"> {{ end }}  {{.Level}} </p> {{.Name}}={{ index .Fields "value" | printf "%0.2v" }}  {{.Group}}   {{.Time}}',
           alerts: [],
           alertNodes: [],
           every: null,
