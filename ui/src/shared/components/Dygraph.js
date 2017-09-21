@@ -446,7 +446,7 @@ Dygraph.defaultProps = {
       bounds: [null, null],
       prefix: '',
       suffix: '',
-      base: BASE_10,
+      base: BASE_2,
       scale: LINEAR,
     },
     y2: {
