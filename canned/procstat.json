@@ -14,7 +14,7 @@
 			"queries": [
 				{
 					"query": "SELECT max(\"memory_rss\") / 1000000 AS \"max_mb_memory_rss\" FROM \"procstat\"",
-					"groupbys": ["\"exe\""],
+					"groupbys": ["\"process_name\""],
 					"wheres": [],
 					"label": "MB"
 				}
@@ -30,7 +30,7 @@
 			"queries": [
 				{
 					"query": "SELECT max(\"cpu_usage\") AS \"cpu_usage\" FROM \"procstat\"",
-					"groupbys": ["\"exe\""],
+					"groupbys": ["\"process_name\""],
 					"wheres": [],
 					"label": "%"
 				}
