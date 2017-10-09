@@ -67,6 +67,11 @@ export const DataSection = React.createClass({
 
   handleGroupByTime(time) {
     this.props.actions.groupByTime(this.props.query.id, time)
+    if (time < defaultEveryFrequency) {
+      this.props.onAddEvery(time)
+    } else {
+      this.props.onAddEvery(defaultEveryFrequency)
+    }
   },
 
   handleApplyFuncsToField(fieldFunc) {

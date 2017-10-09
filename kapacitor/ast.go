@@ -314,6 +314,13 @@ func extractFieldFunc(script chronograf.TICKScript) FieldFunc {
 	var re = regexp.MustCompile(`(?Um)\|(\w+)\('(.*)'\)\s*\.as\('value'\)`)
 	for _, match := range re.FindAllStringSubmatch(string(script), -1) {
 		fn, field := match[1], match[2]
+    if fn == "derivative" {
+      re = regexp.MustCompile(`(?Um)\|max\('(.*)'\)\s*\.as\('max'\)`)
+	    for _, match = range re.FindAllStringSubmatch(string(script), -1) {
+        field = match[1]
+        break
+      }
+    }
 		return FieldFunc{
 			Field: field,
 			Func:  fn,

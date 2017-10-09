@@ -23,7 +23,7 @@ export const defaultRuleConfigs = {
   },
 }
 
-export const defaultEveryFrequency = '30s'
+export const defaultEveryFrequency = '1m'
 
 export const OPERATORS = [
   'greater than',

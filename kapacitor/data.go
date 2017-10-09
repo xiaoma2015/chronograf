@@ -44,7 +44,11 @@ func Data(rule chronograf.AlertRule) (string, error) {
 			for _, fnc := range field.Funcs {
 				// Only need a window if we have an aggregate function
 				value = value + "|window().period(period).every(every).align()\n"
-				value = value + fmt.Sprintf(`|%s('%s').as('value')`, fnc, fld)
+        if fnc != "derivative" {
+				  value = value + fmt.Sprintf(`|%s('%s').as('value')`, fnc, fld)
+        } else {
+				  value = value +  fmt.Sprintf(`|max('%s').as('max')|derivative('max').as('value')`, fld)
+        }
 				break // only support a single field
 			}
 			if value != "" {
