@@ -42,7 +42,7 @@ class ManageSources extends Component {
     } catch (e) {
       addFlashMessage({
         type: 'error',
-        text: 'Could not remove source from Chronograf',
+        text: 'Could not remove source from Manas',
       })
     }
   }
@@ -76,7 +76,7 @@ class ManageSources extends Component {
               setActiveKapacitor={this.handleSetActiveKapacitor}
             />
             <p className="version-number">
-              Chronograf Version: {V_NUMBER}
+              Manas Version: {V_NUMBER}
             </p>
           </div>
         </FancyScrollbar>

@@ -369,9 +369,9 @@ func (s *Server) Serve(ctx context.Context) error {
 	}
 	httpServer.SetKeepAlivesEnabled(true)
 
-	if !s.ReportingDisabled {
-		go reportUsageStats(s.BuildInfo, logger)
-	}
+	//if !s.ReportingDisabled {
+	//	go reportUsageStats(s.BuildInfo, logger)
+	//}
 	scheme := "http"
 	if s.useTLS() {
 		scheme = "https"
