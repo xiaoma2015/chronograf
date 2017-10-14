@@ -22,6 +22,17 @@ const AJAX = async (
 ) => {
   try {
     let response
+    // if (url.substring(0, 4) === 'http') {
+    if (url === 'http://10.10.1.96:9092/kapacitor/v1preview/alerts/topics') {
+      response = await axios({
+        url,
+        method,
+        data,
+        params,
+        headers,
+      })
+      return response
+    }
 
     url = addBasepath(url, excludeBasepath)
 

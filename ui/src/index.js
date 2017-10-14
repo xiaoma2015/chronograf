@@ -18,6 +18,7 @@ import {HostsPage, HostPage} from 'src/hosts'
 import DataExplorer from 'src/data_explorer'
 import {DashboardsPage, DashboardPage} from 'src/dashboards'
 import AlertsApp from 'src/alerts'
+import TopicsApp from 'src/topics'
 import {
   KapacitorPage,
   KapacitorRulePage,
@@ -137,6 +138,7 @@ const Root = React.createClass({
               <Route path="dashboards" component={DashboardsPage} />
               <Route path="dashboards/:dashboardID" component={DashboardPage} />
               <Route path="alerts" component={AlertsApp} />
+              <Route path="topics" component={TopicsApp} />
               <Route path="alert-rules" component={KapacitorRulesPage} />
               <Route path="alert-rules/:ruleID" component={KapacitorRulePage} />
               <Route path="alert-rules/new" component={KapacitorRulePage} />

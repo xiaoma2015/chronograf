@@ -105,6 +105,9 @@ const SideNav = React.createClass({
             <NavListItem link={`${sourcePrefix}/alerts`}>
               Alert History
             </NavListItem>
+            <NavListItem link={`${sourcePrefix}/topics`}>
+              Alert Topics
+            </NavListItem>
             <NavListItem link={`${sourcePrefix}/alert-rules`}>
               Alert Rules
             </NavListItem>
