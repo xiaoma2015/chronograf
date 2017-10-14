@@ -119,7 +119,7 @@ export const CreateSource = React.createClass({
               <div className="col-md-8 col-md-offset-2">
                 <div className="panel panel-minimal">
                   <div className="panel-heading text-center">
-                    <h2 className="deluxe">Welcome to Chronograf</h2>
+                    <h2 className="deluxe">Welcome to Manas</h2>
                   </div>
                   <SourceForm
                     source={source}
