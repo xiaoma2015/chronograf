@@ -60,7 +60,7 @@ canned/bin_gen.go: canned/*.json
 	go generate -x ./canned
 
 .jssrc: $(UISOURCES)
-	cd ui && yarn run build
+	cd ui &&  yarn run prettier && yarn run build
 	@touch .jssrc
 
 .dev-jssrc: $(UISOURCES)
